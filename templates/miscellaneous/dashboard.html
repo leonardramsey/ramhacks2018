@@ -1,10 +1,168 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'miscellaneous/base.html' %}
+
+{% block content %}
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>Dashboard</title>
+<style>
+.organizations {
+  border-bottom: 1px solid #eee;
+  border-bottom-width: medium;
+  padding-left: 14px;
+}
+/* code reference from W3Schools */
+        div.searchable-header {
+            width: 100%; /* Full-width */
+            font-size: 16px; /* Increase font-size */
+        }
 
+        table.searchable {
+            border-collapse: collapse; /* Collapse borders */
+            width: 100%; /* Full-width */
+            border: 1px solid #ddd; /* Add a grey border */
+            font-size: 16px; /* Increase font-size */
+        }
+
+        table.searchable th, table.searchable td {
+            text-align: left; /* Left-align text */
+            padding: 12px; /* Add padding */
+        }
+
+        table.searchable tr {
+            /* Add a bottom border to all table rows */
+            border-bottom: 1px solid #ddd;
+        }
+
+        table.searchable tr.header, table.searchable tr:hover {
+            /* Add a grey background color to the table header and on hover */
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+/* end reference */
+
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+td { height: 50px;}
+</style>
+</head>
+<script>
+    //  sort table based on which column is clicked/current state
+//  based on code from W3Schools API for HTML/CSS/JS
+    function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("table-users");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc";
+      /* Make a loop that will continue until
+      no switching has been done: */
+      while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.getElementsByTagName("TR");
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 1; i < (rows.length - 1); i++) {
+          // Start by saying there should be no switching:
+          shouldSwitch = false;
+          /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          /* Check if the two rows should switch place,
+          based on the direction, asc or desc: */
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch= true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch= true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          // Each time a switch is done, increase this count by 1:
+          switchcount ++;
+        } else {
+          /* If no switching has been done AND the direction is "asc",
+          set the direction to "desc" and run the while loop again. */
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+    //  search table is not case-sensitive
+    //  based on code from W3Schools API for HTML/CSS/JS
+    function tableSearch() {
+      // Declare variables
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("tableSearchInput-users");
+      table = document.getElementById("table-users");
+      filter = input.value.toUpperCase();
+      tr = table.getElementsByTagName("tr");
+
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+</script>
+<body>
+    <div style="padding-left: 20px; padding-right: 20px;">
+        <h5>View the transactions of all organizations on the blockchain.</h5>
+    </div>
+    <hr>
+    <div style="padding-left: 20px; padding-right: 20px;">
+        <div class="searchable-header"><input type="text" id="tableSearchInput-orgs" onkeyup="tableSearch()" placeholder="Search for names..."></div><br>
+        <table width="100%" class="searchable" id="table-orgs">
+            <tr class="header">
+{#                <th onclick="sortTable(0)">First Name <i class="fa fa-fw fa-sort"></th>#}
+{#                <th onclick="sortTable(1)">Last Name <i class="fa fa-fw fa-sort"></th>#}
+{#                <th onclick="sortTable(2)">Username <i class="fa fa-fw fa-sort"></th>#}
+{#                <th onclick="sortTable(3)">Admin? <i class="fa fa-fw fa-sort"></th>#}
+                <th>View Profile</th>
+                <th>Delete User</th>
+            </tr>
+
+{#            {% for o in orgs %}#}
+                <tr >
+{#                    <td>{{ o.address }}</td>#}
+                    <td>0xa70d3f7183ad9272818e6331403beb675b94945d</td>
+{#                    <td><a href="{% url '<insert profile url here>' o.pk %}" class="btn btn-default">Name</a></td>#}
+{#                    <td>{{ o.username }}</td>#}
+{#                    <td>#}
+{#                        {% if o.is_superuser %}#}
+{#                            Yes#}
+{#                        {% else %}#}
+{#                            No#}
+{#                        {% endif %}#}
+{#                    </td>#}
+{#                    <td><a href="{% url 'training:user_profile' o.pk %}" class="btn btn-default"><span class="glyphicon glyphicon-user"/></a></td>#}
+{#                    <td><button onclick="window.location.href='{% url 'deleteUser' o.pk %}'" type="submit" class="btn btn-danger" style="color: white;"><span class="glyphicon glyphicon-trash"/></button></td>#}
+                </tr>
+{#            {% endfor %}#}
+        </table>
+    </div>
 </body>
 </html>
+{% endblock %}

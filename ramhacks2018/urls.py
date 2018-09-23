@@ -20,5 +20,6 @@ from .settings import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', views.index, name='home'),
+    url(r'^$', views.index, name='home'),
+    url(r'^dashboard/$', views.dashboard, name='dashboard'),
 ]

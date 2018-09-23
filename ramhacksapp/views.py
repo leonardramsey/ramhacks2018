@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+import urllib
+
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
@@ -45,3 +47,13 @@ def transfer(request):
         #do repsponse logic
         # return to dashbaord
     return render(request, 'miscellaneous/transfer.html')
+
+def dashboard(request):
+    # add logic to read from api
+    url = ""
+    #req = urllib.request.Requst(url, method='GET')
+    #resp = urllib.request.urlopen(req).read()#.decode('utf-8)
+    data = []
+    #for r in resp:
+    #    data.append(r)
+    return render(request, 'miscellaneous/dashboard.html', {"data":data})
