@@ -7,3 +7,15 @@
 =============== Sep 23, 2018 (EDT) ===============
 01:48:25.000105 db@close closing
 01:48:25.005182 db@close done T·5.0768ms
+=============== Sep 23, 2018 (EDT) ===============
+03:00:59.426644 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+03:00:59.429684 version@stat F·[] S·0B[] Sc·[]
+03:00:59.429684 db@open opening
+03:00:59.434660 journal@recovery F·1
+03:00:59.437651 journal@recovery recovering @1
+03:00:59.523583 memdb@flush created L0@2 N·28084 S·251KiB "n:\x11..ver,d2280":"version,v1"
+03:00:59.526602 version@stat F·[1] S·251KiB[251KiB] Sc·[0.25]
+03:00:59.534578 db@janitor F·3 G·0
+03:00:59.534578 db@open done T·100.9503ms
+03:14:38.856109 db@close closing
+03:14:38.856109 db@close done T·0s
