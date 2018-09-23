@@ -11,8 +11,37 @@ from django.http import JsonResponse
 from django.core import serializers
 from django.core.serializers import serialize
 from django.template import RequestContext
-
+import urllib
 
 def index(request):
-    return render_to_response('miscellaneous/index.html')
+    return render(request, 'miscellaneous/index.html')
 
+def transfer(request):
+    if request.method == 'POST':
+
+        sender_address = request.POST.get('sender_address')
+        rec_address = request.POST.get('rec_address')
+        amount = request.POST.get('amount')
+        print(amount)
+        dic = {"beneficiary": rec_address, "amount": amount}
+
+        url = "http://35.237.130.214:80/transfer"
+        data = urllib.parse.urlencode(dic).encode('utf-8')
+        req = urllib.request.Request(url, data=data, method = 'POST')
+
+        resp_json = urllib.request.urlopen(req).read().decode('utf-8')
+        res = json.loads(resp_json)
+
+        print("before resp")
+        print(res)
+        print("after resp")
+        return JsonResponse(resp_json)
+        #return redirect('home')
+
+        #do post logic
+        #retrieve form data from html contactForm
+        #new post request
+        #send request to his api
+        #do repsponse logic
+        # return to dashbaord
+    return render(request, 'miscellaneous/transfer.html')
