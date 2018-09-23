@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% block content %}
 <body>
 
-</body>
-</html>
+  <form action ="" method="post">{% csrf_token %}
+  <div class="form-group">
+    <label for="sender address">Sender address</label>
+    <input type="text" name = "sender_address" class="form-control" id="sender_address" placeholder="Enter the organization">
+  </div>
+  <div class="form-group">
+    <label for="rec_address">Receiver address</label>
+    <input type="text" name = "rec_address" class="form-control" id="rec_address" placeholder="Give receiver address">
+  </div>
+  <div class="form-group">
+    <label for="amount">Amount</label>
+    <input type="text" name ="amount" class="form-control" id="amount" placeholder="How much?">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}
